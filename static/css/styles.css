@@ -1,15 +1,29 @@
+.navbar-or {
+  background-color: rgba(25, 25, 25, 0.31)!important;
+}
+
 .jumbotron {
-  padding-top: 3rem;
+  margin-top: -4rem;
+  padding-top: 6rem;
   padding-bottom: 3rem;
   margin-bottom: 0;
-  background-color: #fff;
+  background-image: url('/static/img/max-stolbinsky-36174159450.jpg');
+  background-position: center top;
+  background-size: cover;
+  color: #fff;
+  border-radius: 0;
 }
 
 @media (min-width: 768px) {
   .jumbotron {
-    padding-top: 6rem;
+    padding-top: 8rem;
     padding-bottom: 6rem;
   }
+}
+
+.jumbotron p.lead {
+  color: #fff;
+  text-shadow: #424242 0px 3px 5px;
 }
 
 .jumbotron p:last-child {
@@ -18,6 +32,8 @@
 
 .jumbotron-heading {
   font-weight: 300;
+  color: #fff;
+  text-shadow: #424242 0px 3px 5px;
 }
 
 .jumbotron .container {
