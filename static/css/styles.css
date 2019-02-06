@@ -1,3 +1,6 @@
+body {
+  hyphens: auto;
+}
 .navbar-or {
   background-color: rgba(25, 25, 25, 0.31)!important;
 }

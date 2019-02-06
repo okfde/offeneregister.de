@@ -1,0 +1,405 @@
+---
+layout: base
+title: 🏢 OffeneRegister.de
+
+---
+
+<div class="py-5">
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-5 pt-3">
+      <div class="col-md-8">
+
+<h1>German company register data: README</h1>
+<h3>1. About the data</h3>
+
+<p>This file contains basic German company information (companies and their officers) collected by OpenCorporates mainly in the period from June 2017 to January 2019, mainly from the <a href="https://www.handelsregisterbekanntmachungen.de" target="_blank" rel="noopener">Handelsregisterbekanntmachungen</a> and to a lesser extent the <a href="https://www.handelsregister.de" target="_blank" rel="noopener">Handelsregister</a> (search results listings) for over 5,000,000 companies.</p>
+<p>The two other German company registers, the company announcements from Bundesanzeiger and company register Unternehmensregister, have adverse terms of use that restrict OpenCorporates from publishing the data, and therefore are not included.</p>
+<p>OpenCorporates is making this dataset available for the benefit of all under an open licence, in the hopes that this dataset will show the benefits of publishing company information as open data. OpenCorporates is a social enterprise dedicated to making company information more widely available for the benefit of society. Part of our core mission is to campaign for open company data for the benefit of society &ndash; and against systems which restrict this critical data to only those who can pay for it &ndash; and we work with civil society, businesses and governments to achieve this goal.</p>
+<p>For more information about OpenCorporates principles, please visit: https://opencorporates.com/info/principles</p>
+<h3>2. Licenses/restrictions placed on the data:</h3>
+<p>The data in this file is all derived from the official public sources specified above. OpenCorporates does not claim any rights over this underlying data (and it is possible that the original sources may claim rights over this). However, we have acquired database rights through the collection, parsing, standardising and organisation of this data. To the extent that we have such rights in this dataset, we are placing only the requirement that users of this file should attribute OpenCorporates as the source of this data (we recommend that you also cite the official public sources too), and thus make this available under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons Attribution Licence 4.0</a>.</p>
+<p>Our preferred form of attribution is a hyperlink reading "from OpenCorporates" and linking to either the OpenCorporates homepage or the page referring to the information in question. Citing us in a report or mentioning the source in a newspaper article you write directly supports our work and allows us to create great databases.</p>
+<p>GDPR Information - the files contain personal data - please see <a href="https://opencorporates.com/info/public_records_privacy_policy" target="_blank" rel="noopener">https://opencorporates.com/info/public_records_privacy_policy</a>.</p>
+<p>According to Section 8.2 of the Commercial Code, this dataset shall not be put into circulation using or including the designation &ldquo;Commercial Register&rdquo; or &ldquo;Handelsregister&rdquo;. Please see: <a href="https://www.gesetze-im-internet.de/englisch_hgb/englisch_hgb.html#p0036" target="_blank" rel="noopener">https://www.gesetze-im-internet.de/englisch_hgb/englisch_hgb.html#p0036</a></p>
+<h3>3. Data Quality</h3>
+<p>Because this critical information is not made available as open data, collecting it, and particularly parsing it from semi-structured or unstructured data is not an exact science. As with any large dataset there are likely to be errors, and we have also found a number of data quality errors in the underlying data (see &ldquo;Data Caveats&rdquo;, below for examples). If you do find any errors that are not in the underlying data, please let us know at <a href="mailto:helpdesk@opencorporates.com" target="_blank" rel="noopener">helpdesk@opencorporates.com</a></p>
+<h3>4. Company numbers</h3>
+<p>A specific area of data quality concern is the lack of unique, well-formed, persistent official corporate identifiers in Germany. Corporate identifiers in Germany are none of these, as:</p>
+<ul>
+<li>The identifiers are issued by the district court (Amtsgericht) in which they are based, but the identifiers issued are unique only to that court &ndash; and so not unique across Germany. A solution to this is to create a composite identifier, combining the court and the identifier it issued, however this is problematic in the German context for the reasons below.</li>
+<li>There is no universally accepted way of representing the courts, and courts have consolidated over time, further complicating issues. This means that the identifiers are not well-formed, and corporate identifiers in one source, even an official one, may be represented in different ways to another source.</li>
+<li>When companies move their headquarters, they re-register with the new district court, which issues a new corporate identifier. This means the identifier is not persistent (permanently attached 1:1 with the legal entity)</li>
+<li>Some older companies are registered with more than one court simultaneously, meaning they have more than one identifier</li>
+</ul>
+<p>OpenCorporates has attempted to solve all these problems with a series of measures:</p>
+<ul>
+<li>We have standardised the company numbers, following our <a href="https://blog.opencorporates.com/2019/01/29/policy-paper-how-opencorporates-should-handle-company-number-problems/" target="_blank" rel="noopener">internal policy paper on handling company number problems</a>, &nbsp;by using the approach taken by the EUID. Although not widely used and not well documented, the EUID is an EU identifier scheme for EU corporate identifiers, and uses a code for the district courts, and then combines this with the main identifier, e.g. B1000_HRB_123</li>
+<li>We have extracted the moves of a company&rsquo;s registration from one district court to another from the gazette notices announcing them and listed them as either subsequent or previous registrations, as appropriate. Please note that the gazettes listing these are not well formed, nor do they have consistent publication schedules</li>
+</ul>
+
+<h2>Data &amp; file overview</h2>
+
+<h4>1. File List</h4>
+<p>Filename: &nbsp;de_companies_ocdata_no_dob.jsonl.gz</p>
+<p>Short description: <a href="http://jsonlines.org/" target="_blank" rel="noopener">JSON Lines</a> format file, UTF-8 encoding, gzip compression.</p>
+<p>This file contains companies, with additional related data (officers, related registrations, registered address). The structure of the JSON meets OpenCorporates&rsquo; <a href="https://github.com/openc/openc-schema/blob/related-registration/build/company-schema.json" target="_blank" rel="noopener"><em>&rdquo;company&rdquo;</em> schema</a> (in <a href="http://json-schema.org/" target="_blank" rel="noopener">JSON schema format</a>), which sets out the fields and relationships between objects. Note that this schema is currently in beta, and may be subject to change.</p>
+
+<h2>Methodological information</h2>
+<h4>1. Description of methods used for collection/generation of data:</h4>
+<p>Data was automatically collected from the following sources:</p>
+<ul>
+<li>Handelsregister.de - search results</li>
+<li>Handelsregisterbekanntmachungen.de - company notices/gazettes</li>
+</ul>
+<h4>2. Methods for processing the data:</h4>
+<p>The following steps were taken to prepare the processed dataset from scraped data</p>
+<ol>
+<li>Data parsed from Register. Generate company_number from court number (Amtsgericht), register type (HRA, HRB, etc), number and any suffix.</li>
+<li>Data parsed from Gazettes. Generate company_number from court number (Amtsgericht), register type (HRA, HRB, etc), number and any suffix.</li>
+<li>For each company in Register:</li>
+<ol>
+<li>Attempt to join to Gazette notices using company_number</li>
+<li>Using Gazette data, produce list of officers for company. Attempt to de-duplicate officers by name, role, d.o.b, reference number, to calculate start_date &amp; end_date.</li>
+<li>Using Gazette data, produce related_registrations data (former or subsequent company_number)</li>
+</ol>
+<li>Validate that each resulting <em>company</em> object meets JSON schema layout.</li>
+</ol>
+<p>Since its initial scrape back in 2017-2018, the dataset has been kept up-to-date by processing gazette notices as they are published - these provide details of new companies, amendments to company details, and deletions. The company details are then refreshed from the register based on this information. This approach means that the register is not scraped more than necessary, in accordance with OpenCorporates internal guidelines for scraping.</p>
+<h4>3. Data caveats</h4>
+<ul>
+<li>Officer name parsing - may include unparsed data - for example: honorifics such as &ldquo;Doctor&rdquo;, maiden name (&ldquo;XXX geborene YYY&rdquo;), erroneous punctuation eg (&ldquo;:&rdquo;) in the name of the officer. &lt;4% occurrence.</li>
+<li>Officer name parsing, where officer type is company - this has not yet been fully parsed into its component parts. For example "Inncona Gesch&auml;ftsf&uuml;hrungs GmbH, Enger (AG Bad Oeynhausen HRB 6120)." has not been deconstructed into the company name, Amtsgericht, number.</li>
+<li>Officer de-duplication. The dataset attempts to track officers for a particular role and deduplicate entries for them so that there is a single officer in the data with a known start &amp; end date. This de-duplication approach is in beta, and a minority of officers will currently appear to be duplicated in the data as they do not fit our current approach.</li>
+<li>Linking of gazettes to register entries. We are aware of around 50,000 companies where we have not been able to link the gazette notices to the register entries. These are primarily for companies registered at courts that have been re-organised/consolidated, and where Handelsregister.de &amp; Handelsregisterbekanntmachungen.de maintain different names for the courts. The vast majority of companies that do not have officers information are dissolved/closed.</li>
+<li>We found around 1,000 misspelled court names for notices relating to companies relocating from one headquarters to another - some examples follow. We have been able to positively match these to the correct court in around 85% of cases).</li>
+</ul>
+<p>CHarlottenburg</p>
+<p>Cahrlottenburg</p>
+<p>Carlottenburg</p>
+<p>Chaarlottenburg</p>
+<p>Chalottenburg</p>
+<p>Chalrlottenburg</p>
+<p>Chalrottenburg</p>
+<p>Charlotenburg</p>
+<h3>Sample data entries</h3>
+<p>Here&rsquo;s an example of a formatted single entry showing company with officers.</p>
+<pre><code>
+$ grep "M&uuml;nchen HRB 73315" de_companies_ocdata.jsonl | jq '.'
+{
+  "officers": [
+      {
+          "other_attributes": {
+              "city": "M&uuml;nchen",
+              "lastname": "Wagner",
+              "firstname": "Malte Rudolf Otto"
+          },
+          "position": "Prokurist",
+          "name": "Malte Rudolf Otto Wagner",
+          "type": "person",
+          "start_date": "2016-09-01"
+      },
+      {
+          "other_attributes": {
+              "city": "Bad Homburg",
+              "dismissed": true,
+              "lastname": "Rohr",
+              "firstname": "Stefan Dietrich"
+          },
+          "position": "Prokurist",
+          "name": "Stefan Dietrich Rohr",
+          "type": "person",
+          "end_date": "2016-03-11"
+      },
+      {
+          "other_attributes": {
+              "city": "M&uuml;nchen",
+              "lastname": "Wagner",
+              "firstname": "Malte Rudolf Otto"
+          },
+          "position": "Prokurist",
+          "name": "Malte Rudolf Otto Wagner",
+          "type": "person",
+          "start_date": "2013-05-13"
+      },
+      {
+          "other_attributes": {
+              "city": "Hamburg",
+              "dismissed": true,
+              "lastname": "Schulz",
+              "firstname": "Rolf-Dieter"
+          },
+          "position": "Prokurist",
+          "name": "Rolf-Dieter Schulz",
+          "type": "person",
+          "end_date": "2011-10-19"
+      },
+      {
+          "other_attributes": {
+              "city": "Olching",
+              "dismissed": true,
+              "lastname": "Haxel",
+              "firstname": "Andreas"
+          },
+          "position": "Prokurist",
+          "name": "Andreas Haxel",
+          "type": "person",
+          "end_date": "2010-04-08"
+      },
+      {
+          "other_attributes": {
+              "city": "Gro&szlig;hansdorf",
+              "dismissed": true,
+              "lastname": "Fritzke",
+              "firstname": "Holger"
+          },
+          "position": "Prokurist",
+          "name": "Holger Fritzke",
+          "type": "person",
+          "end_date": "2009-03-16"
+      },
+      {
+          "other_attributes": {
+              "city": "M&uuml;nchen",
+              "dismissed": true,
+              "lastname": "Bayer",
+              "firstname": "Jan"
+          },
+          "position": "Prokurist",
+          "name": "Jan Bayer",
+          "type": "person",
+          "end_date": "2008-06-11"
+      },
+      {
+          "other_attributes": {
+              "city": "Aschheim",
+              "lastname": "Lauer",
+              "firstname": "Mario"
+          },
+          "position": "Prokurist",
+          "name": "Mario Lauer",
+          "type": "person",
+          "start_date": "2006-11-16"
+      },
+      {
+          "other_attributes": {
+              "city": "M&uuml;nchen",
+              "dismissed": true,
+              "lastname": "Kammler",
+              "firstname": "Karl"
+          },
+          "position": "Prokurist",
+          "name": "Karl Kammler",
+          "type": "person",
+          "end_date": "2006-10-16"
+      },
+      {
+          "other_attributes": {
+              "city": "Olching",
+              "lastname": "Haxel",
+              "firstname": "Andreas"
+          },
+          "position": "Prokurist",
+          "name": "Andreas Haxel",
+          "type": "person",
+          "start_date": "2006-10-16"
+      },
+      {
+          "other_attributes": {
+              "city": "Bad Homburg",
+              "lastname": "Rohr",
+              "firstname": "Stefan Dietrich"
+          },
+          "position": "Prokurist",
+          "name": "Stefan Dietrich Rohr",
+          "type": "person",
+          "start_date": "2006-09-25"
+      },
+      {
+          "other_attributes": {
+              "city": "Unterf&ouml;hring",
+              "dismissed": true,
+              "lastname": "Liebler",
+              "firstname": "Joachim"
+          },
+          "position": "Prokurist",
+          "name": "Joachim Liebler",
+          "type": "person",
+          "end_date": "2006-08-03"
+      },
+      {
+          "other_attributes": {
+              "city": "M&uuml;nchen",
+              "flag": "mit der Befugnis im Namen der Gesellschaft mit sich im eigenen Namen oder als Vertreter eines Dritten Rechtsgesch&auml;fte abzuschlie&szlig;en",
+              "lastname": "Hilscher",
+              "firstname": "Stefan"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Stefan Hilscher",
+          "type": "person",
+          "start_date": "2015-10-26"
+      },
+      {
+          "other_attributes": {
+              "city": "M&uuml;nchen",
+              "lastname": "Hilscher",
+              "firstname": "Stefan"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Stefan Hilscher",
+          "type": "person",
+          "start_date": "2015-09-22"
+      },
+      {
+          "other_attributes": {
+              "city": "Gr&uuml;nwald",
+              "dismissed": true,
+              "lastname": "Doctor Haaks",
+              "firstname": "Detlef"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Detlef Doctor Haaks",
+          "type": "person",
+          "end_date": "2015-05-19"
+      },
+      {
+          "other_attributes": {
+              "city": "Oberndorf a.N",
+              "dismissed": true,
+              "lastname": "Doctor Rebmann",
+              "firstname": "Richard"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Richard Doctor Rebmann",
+          "type": "person",
+          "end_date": "2012-04-19"
+      },
+      {
+          "other_attributes": {
+              "city": "Gr&uuml;nwald",
+              "flag": "mit der Befugnis im Namen der Gesellschaft mit sich im eigenen Namen oder als Vertreter eines Dritten Rechtsgesch&auml;fte abzuschlie&szlig;en",
+              "lastname": "Doctor Haaks",
+              "firstname": "Detlef"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Detlef Doctor Haaks",
+          "type": "person",
+          "start_date": "2011-05-17"
+      },
+      {
+          "other_attributes": {
+              "city": "B&ouml;blingen",
+              "flag": "mit der Befugnis im Namen der Gesellschaft mit sich im eigenen Namen oder als Vertreter eines Dritten Rechtsgesch&auml;fte abzuschlie&szlig;en",
+              "lastname": "Doctor Haaks",
+              "firstname": "Detlef"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Detlef Doctor Haaks",
+          "type": "person",
+          "start_date": "2009-06-19"
+      },
+      {
+          "other_attributes": {
+              "city": "M&uuml;nchen",
+              "flag": "mit der Befugnis im Namen der Gesellschaft mit sich im eigenen Namen oder als Vertreter eines Dritten Rechtsgesch&auml;fte abzuschlie&szlig;en",
+              "lastname": "Doctor Ulrich",
+              "firstname": "Karl"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Karl Doctor Ulrich",
+          "type": "person",
+          "start_date": "2009-06-19"
+      },
+      {
+          "other_attributes": {
+              "city": "Speyer",
+              "dismissed": true,
+              "lastname": "Doctor Dubber",
+              "firstname": "Oliver Carsten"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Oliver Carsten Doctor Dubber",
+          "type": "person",
+          "end_date": "2008-05-30"
+      },
+      {
+          "other_attributes": {
+              "city": "M&uuml;nchen",
+              "flag": "sole representation",
+              "lastname": "Doctor Ulrich",
+              "firstname": "Karl"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Karl Doctor Ulrich",
+          "type": "person",
+          "start_date": "2008-05-30"
+      },
+      {
+          "other_attributes": {
+              "city": "CH-Untervaz",
+              "dismissed": true,
+              "lastname": "Lutz",
+              "firstname": "Klaus Josef"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Klaus Josef Lutz",
+          "type": "person",
+          "end_date": "2008-03-05"
+      },
+      {
+          "other_attributes": {
+              "city": "Speyer",
+              "lastname": "Doctor Dubber",
+              "firstname": "Oliver Carsten"
+          },
+          "position": "Gesch&auml;ftsf&uuml;hrer",
+          "name": "Oliver Carsten Doctor Dubber",
+          "type": "person",
+          "start_date": "2008-03-05"
+      }
+  ],
+  "registered_address": "Hultschiner Stra&szlig;e 8, 81677 M&uuml;nchen.",
+  "retrieved_at": "2017-07-04T00:27:59Z",
+  "jurisdiction_code": "de",
+  "all_attributes": {
+      "federal_state": "Bavaria",
+      "registrar": "M&uuml;nchen",
+      "_registerArt": "HRB",
+      "_registerNummer": "73315",
+      "registered_office": "M&uuml;nchen",
+      "additional_data": {
+          "AD": true,
+          "CD": true,
+          "HD": true,
+          "DK": true,
+          "UT": true,
+          "V&Ouml;": true,
+          "SI": false
+      },
+      "native_company_number": "M&uuml;nchen HRB 73315"
+  },
+  "company_number": "D2601V_HRB73315",
+  "name": "S&uuml;ddeutsche Zeitung GmbH",
+  "current_status": "currently registered",
+  "previous_names": [
+      {
+          "company_name": "Karl Wenschow - Franzis Druck GmbH M&uuml;nchen Sitz: M&uuml;nchen"
+      },
+      {
+          "company_name": "Karl Wenschow GmbH"
+      },
+      {
+          "company_name": "Karl Wenschow - Franzis Druck GmbH M&uuml;nchen"
+      }
+  ]
+}</code></pre>
+
+<p>
+  <a href="/">Back to main page</a>
+</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
