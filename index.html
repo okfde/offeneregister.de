@@ -298,6 +298,16 @@ title: OffeneRegister.de
             <a class="btn btn-outline-secondary" href="https://db.offeneregister.de/" target="_blank" rel="noopener">zur API OffeneRegister.de</a>
           </p>
         </div>
+
+        <div class="mt-3">
+          <h4>Fehler in den Daten gefunden?</h4>
+          <p>
+            Sie können
+            <a href="https://github.com/opencorporates/de_data_quality/issues">
+              Datenprobleme hier melden.
+            </a>
+          </p>
+        </div>
       </div>
 
       <div class="col-md-6">
@@ -360,6 +370,11 @@ title: OffeneRegister.de
         <h4 class="mb-4">
           Kleine Personen-Suche mit der SQL-API von OffeneRegister.de
         </h4>
+        <p>
+          <a href="https://db.offeneregister.de/openregister-ef9e802?sql=select+company.name%2C+officer.name%2C+position%2C+city%2C+officer.start_date%2C+officer.end_date%2C+officer.dismissed%2C+company_id%2C+company.registered_address%2C+company.native_company_number+from+officer%0D%0AJOIN+company+ON+officer.company_id%3Dcompany.company_number+%0D%0Awhere+officer.rowid+in+%28select+rowid+from+officer_fts+where+officer_fts+match+%3Asearch%29&search=Olaf+Scholz">
+            Beispiel einer Personen-Suche mit Unternehmen
+          </a>
+        </p>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Suche nach Person" aria-label="Suche nach Person" aria-describedby="searchbutton" id="search">
           <div class="input-group-append">
@@ -391,40 +406,60 @@ title: OffeneRegister.de
     </div>
 
     <div class="row">
-      <div class="col-lg-12">
-        <div class="card-deck">
-          <div class="card" style="width: 100%">
-            <img src="/static/img/netzwerk.png" class="card-img-top" alt="Firmennetzwerk Deutsche Wohnen">
-            <div class="card-body">
-              <p class="card-text">
-                Kleine Netzwerkvisualisierung von Personen und Unternehmen.
-              </p>
-              <a class="btn btn-outline-secondary" href="https://vis.one/netzwerk-deutscher-unternehmen/">
-                Demo-Anwendung öffnen
-              </a>
-            </div>
-            <div class="card-footer text-muted">
-              <small>
-                von <a href="https://johannesfilter.com/" target="_blank" rel="noopener">Johannes Filter</a>
-              </small>
-            </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <img src="/static/img/netzwerk.png" class="card-img-top" alt="Firmennetzwerk Deutsche Wohnen">
+          <div class="card-body">
+            <p class="card-text">
+              Kleine Netzwerkvisualisierung von Personen und Unternehmen.
+            </p>
+            <a class="btn btn-outline-secondary" href="https://vis.one/netzwerk-deutscher-unternehmen/">
+              Demo-Anwendung öffnen
+            </a>
           </div>
+          <div class="card-footer text-muted">
+            <small>
+              von <a href="https://johannesfilter.com/" target="_blank" rel="noopener">Johannes Filter</a>
+            </small>
+          </div>
+        </div>
+      </div>
 
-          <div class="card">
-            
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><rect fill="#868e96" width="100%" height="100%"></rect><text fill="#dee2e6" dy=".3em" x="50%" y="50%">Deine Demo hier</text></svg>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="/static/img/netzwerk_luca.jpg" class="card-img-top" alt="Firmennetzwerk">
+          <div class="card-body">
+            <p class="card-text">
+              Große Netzwerkvisualisierung von Personen Unternehmen
+            </p>
+            <a class="btn btn-outline-secondary" href="https://twitter.com/luca/status/1095277594596069377">
+              Twitter-Thread anschauen öffnen
+            </a>
+          </div>
+          <div class="card-footer text-muted">
+            <small>
+              von <a href="https://twitter.com/luca/" target="_blank" rel="noopener">Luca Hammer</a>
+            </small>
+          </div>
+        </div>
+      </div>
 
-            <div class="card-body">
-              <p class="card-text text-center pt-5">
-                Nutze die Daten und schick uns Deine Demo-Anwendung an<br/>
-                <strong>offeneregister[at]okfn.de</strong>
-              </p>
-            </div>
-            <div class="card-footer text-muted">
-              <small>
-                von Dir
-              </small>
-            </div>
+      <div class="col-md-4">
+        <div class="card">
+          
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><rect fill="#868e96" width="100%" height="100%"></rect><text fill="#dee2e6" dy=".3em" x="50%" y="50%">Deine Demo hier</text></svg>
+
+          <div class="card-body">
+            <p class="card-text text-center pt-5">
+              Nutze die Daten und schick uns Deine Demo-Anwendung an<br/>
+              <strong>offeneregister[at]okfn.de</strong>
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            <small>
+              von Dir
+            </small>
           </div>
         </div>
       </div>
