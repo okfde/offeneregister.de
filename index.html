@@ -371,7 +371,7 @@ title: OffeneRegister.de
           Kleine Personen-Suche mit der SQL-API von OffeneRegister.de
         </h4>
         <p>
-          <a href="https://db.offeneregister.de/openregister-ef9e802?sql=select+company.name%2C+officer.name%2C+position%2C+city%2C+officer.start_date%2C+officer.end_date%2C+officer.dismissed%2C+company_id%2C+company.registered_address%2C+company.native_company_number+from+officer%0D%0AJOIN+company+ON+officer.company_id%3Dcompany.company_number+%0D%0Awhere+officer.rowid+in+%28select+rowid+from+officer_fts+where+officer_fts+match+%3Asearch%29&search=Olaf+Scholz">
+          <a href="https://db.offeneregister.de/openregister?sql=select+company.name%2C+officer.name%2C+position%2C+city%2C+officer.start_date%2C+officer.end_date%2C+officer.dismissed%2C+company_id%2C+company.registered_address%2C+company.native_company_number+from+officer%0D%0AJOIN+company+ON+officer.company_id%3Dcompany.company_number+%0D%0Awhere+officer.rowid+in+%28select+rowid+from+officer_fts+where+officer_fts+match+%3Asearch%29&search=Olaf+Scholz">
             Beispiel einer Personen-Suche mit Unternehmen
           </a>
         </p>
