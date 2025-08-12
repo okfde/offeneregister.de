@@ -10,7 +10,7 @@ $(function(){
     if (!val) {
       return
     }
-    var url = 'https://db.offeneregister.de/openregister-ef9e802.json?sql=select+officer.name+as+officer_name%2C+officer.position%2C+company.name+from+officer%0D%0Ajoin+company+on+officer.company_id%3Dcompany.company_number%0D%0Awhere+officer.rowid+in+%28select+rowid+from+officer_fts+where+officer_fts+match+%3Asearch%29+limit+10&search='
+    var url = 'https://db.offeneregister.de/openregister.json?sql=select+officer.name+as+officer_name%2C+officer.position%2C+company.name+from+officer%0D%0Ajoin+company+on+officer.company_id%3Dcompany.company_number%0D%0Awhere+officer.rowid+in+%28select+rowid+from+officer_fts+where+officer_fts+match+%3Asearch%29+limit+10&search='
     url = url + encodeURIComponent(val)
     $.getJSON(url, function (data) {
       var html = []
